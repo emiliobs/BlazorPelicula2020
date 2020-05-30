@@ -1,18 +1,32 @@
 ﻿@page "/"
 
-
 @*VAriable implicitas*@
-<p>Hola, @EnMAyuscular(nombre)</p>
+<p>Hola, @UtilidadesString.EnMayuscular(nombre)</p>
 
 @*VAriables explicitas*@
 <p>Vamos a sumar 5 + 5 = @(5 + 5)</p>
 
 <button @onclick="@ManejarClick">Presioname</button>
 
+<div>
+    <h3>Película</h3>
+    <p>Título: <b>@SpiderMan.Titulo</b></p>
+    <p>Fecha de Lanzamiento: <b>@SpiderMan.Lanzamiento.ToString("dd MM yyyy")</b></p>
+</div>
+
+
 @code{
+
     string nombre = "Emilio";
 
-    string EnMAyuscular(string valor) => valor.ToUpper();
+    //string EnMAyuscular(string valor) => valor.ToUpper();
+    public Pelicula SpiderMan => ObtenerPelicula();
+
+    private Pelicula ObtenerPelicula()
+    {
+        return new Pelicula { Titulo = "Spider-Man: Far From Home", Lanzamiento = new DateTime(2019, 7, 2) };
+
+    }
 
     private void ManejarClick()
     {
