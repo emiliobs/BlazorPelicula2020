@@ -1,5 +1,4 @@
 ﻿@page "/"
-
 @*VAriable implicitas*@
 <p>Hola, @UtilidadesString.EnMayuscular(nombre)</p>
 
@@ -7,11 +6,26 @@
 <p>Vamos a sumar 5 + 5 = @(5 + 5)</p>
 
 <button @onclick="@ManejarClick">Presioname</button>
+<hr />
 
 <div>
     <h3>Película</h3>
-    <p>Título: <b>@SpiderMan.Titulo</b></p>
-    <p>Fecha de Lanzamiento: <b>@SpiderMan.Lanzamiento.ToString("dd MM yyyy")</b></p>
+    @foreach (var pelicula in ObtenerPeliculas())
+    {
+        <div>
+            <p>Título: <b>@pelicula.Titulo</b></p>
+            <p>Fecha de Lanzamiento: <b>@pelicula.Lanzamiento.ToString("dd MM yyyy")</b></p>
+        </div>
+    }
+<hr />
+    @for (int i = 0; i <  Peliculas.Count; i++)
+    {
+         <div>
+             <p>@(i + 1)) Título: <b>@Peliculas[i].Titulo</b></p>
+             <p>Fecha de Lanzamiento: <b>@Peliculas[i].Lanzamiento.ToString("dd MM yyyy")</b></p>
+         </div>
+    }
+
 </div>
 
 
@@ -21,6 +35,19 @@
 
     //string EnMAyuscular(string valor) => valor.ToUpper();
     public Pelicula SpiderMan => ObtenerPelicula();
+    public List<Pelicula> Peliculas => ObtenerPeliculas();
+
+    private List<Pelicula> ObtenerPeliculas()
+    {
+        return new List<Pelicula>()
+{
+            new Pelicula { Titulo = "Spider-Man: Far From Home", Lanzamiento = new DateTime(2019, 7, 2) },
+            new Pelicula { Titulo = "Moana", Lanzamiento = new DateTime(2016, 5, 5) },
+            new Pelicula { Titulo = "Inception", Lanzamiento = new DateTime(2015, 7, 7) },
+            new Pelicula { Titulo = "Speed 5", Lanzamiento = new DateTime(2020, 5, 5) },
+            new Pelicula { Titulo = "Creasy for Mery", Lanzamiento = new DateTime(2018, 8, 5) },
+        };
+    }
 
     private Pelicula ObtenerPelicula()
     {
