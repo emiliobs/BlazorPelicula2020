@@ -1,0 +1,21 @@
+﻿@page "/"
+
+
+@*VAriable implicitas*@
+<p>Hola, @EnMAyuscular(nombre)</p>
+
+@*VAriables explicitas*@
+<p>Vamos a sumar 5 + 5 = @(5 + 5)</p>
+
+<button @onclick="@ManejarClick">Presioname</button>
+
+@code{
+    string nombre = "Emilio";
+
+    string EnMAyuscular(string valor) => valor.ToUpper();
+
+    private void ManejarClick()
+    {
+        Console.WriteLine("Me han clickeado desde método....");
+    }
+}
