@@ -1,0 +1,28 @@
+﻿ @if (Peliculas == null)
+        {
+            <div class="spinner"></div>
+        }
+        else if (Peliculas.Count == 0)
+        {
+            <text> No hay registros para mostrar..... </text>
+        }
+        else
+        {
+            @foreach (var pelicula in Peliculas)
+            {
+               <PeliculaIndividual Pelicula="pelicula"></PeliculaIndividual>
+            }
+        }
+
+@code
+{
+
+    [Parameter] public List<Pelicula> Peliculas { get; set; }
+
+
+   
+
+
+    
+
+}
