@@ -1,32 +1,48 @@
 ﻿@page "/"
 @*VAriable implicitas*@
-<p>Hola, @UtilidadesString.EnMayuscular(nombre)</p>
-
+<!--<p>Hola, @UtilidadesString.EnMayuscular(nombre)</p>-->
 @*VAriables explicitas*@
-<p>Vamos a sumar 5 + 5 = @(5 + 5)</p>
+<!--<p>Vamos a sumar 5 + 5 = @(5 + 5)</p>
 
 <button @onclick="@ManejarClick">Presioname</button>
-<hr />
+<hr />-->
+@*<div>
+        <h3>Película</h3>
+        @foreach (var pelicula in ObtenerPeliculas())
+        {
+            <div>
+                <p>Título: <b>@pelicula.Titulo</b></p>
+                <p>Fecha de Lanzamiento: <b>@pelicula.Lanzamiento.ToString("dd MM yyyy")</b></p>
+            </div>
+        }
 
-<div>
-    <h3>Película</h3>
-    @foreach (var pelicula in ObtenerPeliculas())
+    <hr />*@
+
+@if (Peliculas == null)
+{
+    <div class="spinner"></div>
+}
+else if (Peliculas.Count == 0)
+{
+    <text> No hay registros para mostrar..... </text>
+}
+else
+{
+    @for (int i = 0; i < Peliculas.Count; i++)
     {
         <div>
-            <p>Título: <b>@pelicula.Titulo</b></p>
-            <p>Fecha de Lanzamiento: <b>@pelicula.Lanzamiento.ToString("dd MM yyyy")</b></p>
+            @if (i == Peliculas.Count - 1)
+            {
+                <p>Esta es la última película.</p>
+            }
+            <p>@(i + 1)) Título: <b>@Peliculas[i].Titulo</b></p>
+            <p>Fecha de Lanzamiento: <b>@Peliculas[i].Lanzamiento.ToString("dd MM yyyy")</b></p>
         </div>
     }
-<hr />
-    @for (int i = 0; i <  Peliculas.Count; i++)
-    {
-         <div>
-             <p>@(i + 1)) Título: <b>@Peliculas[i].Titulo</b></p>
-             <p>Fecha de Lanzamiento: <b>@Peliculas[i].Lanzamiento.ToString("dd MM yyyy")</b></p>
-         </div>
-    }
+}
 
-</div>
+
+
 
 
 @code{
@@ -35,7 +51,14 @@
 
     //string EnMAyuscular(string valor) => valor.ToUpper();
     public Pelicula SpiderMan => ObtenerPelicula();
-    public List<Pelicula> Peliculas => ObtenerPeliculas();
+    public List<Pelicula> Peliculas;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        Peliculas = new List<Pelicula>();
+    }
 
     private List<Pelicula> ObtenerPeliculas()
     {
