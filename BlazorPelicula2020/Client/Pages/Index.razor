@@ -4,8 +4,12 @@
     <h3>Película</h3>
     <hr />
 
-    <ListadoPeliculas  Peliculas="ObtenerPeliculas()"></ListadoPeliculas>
+    <ListadoPeliculas  Peliculas="Peliculas"></ListadoPeliculas>
+</div>
 
+<div>
+    <h2>Crear nueva película</h2>
+    <EjemploTextBox ></EjemploTextBox>
 </div>
 
 
@@ -14,7 +18,22 @@
 
     string nombre = "Emilio";
 
+    private Dictionary<string, object> EjmeploTexboxParametros = new Dictionary<string, object>()
+    {
 
+        { "placeholder", "nueva pelicula" },
+        { "type" , "passwors" }
+
+    };
+
+    private List<Pelicula> Peliculas;
+
+    protected override Task OnInitializedAsync()
+    {
+        Peliculas = ObtenerPeliculas();
+
+        return base.OnInitializedAsync();
+    }
 
     private List<Pelicula> ObtenerPeliculas()
     {
