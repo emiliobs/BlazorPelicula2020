@@ -1,0 +1,24 @@
+﻿@page "/ParentCompenent"
+
+<h3>Parent Compenent</h3>
+<hr />
+
+<ChildCompenet Title="Panel Title from Parent" OnClickCallback="@ShowMessage">
+    <span style="text-align:center; color:red;">
+        Content of the child component is supplied
+        by the parent component.
+    </span>
+</ChildCompenet>
+
+<p><b>@messageText</b></p>
+
+@code {
+
+private string messageText;
+
+private void ShowMessage(MouseEventArgs e)
+{
+    messageText = $"Blaze a new trail with Blazor! ({ e.ScreenX } , {e.ScreenY} )";
+}
+
+}
