@@ -5,7 +5,7 @@
     @if (MostrarBotones)
     {
         <div>
-            <button class="btn btn-danger" @onclick="Eliminar">Borrar</button>
+            <button class="btn btn-danger" @onclick="@( () => Eliminarpelicula.InvokeAsync(Pelicula))">Borrar</button>
         </div>
     }
 
@@ -17,9 +17,7 @@
 
     [Parameter] public Pelicula Pelicula { get; set; }
     [Parameter] public bool MostrarBotones { get; set; } = false;
+    [Parameter] public  EventCallback<Pelicula>  Eliminarpelicula { get; set; }
 
-    void Eliminar()
-    {
-        Console.WriteLine($"Eliminando la película {Pelicula.Titulo}");
-    }
+   
 }
