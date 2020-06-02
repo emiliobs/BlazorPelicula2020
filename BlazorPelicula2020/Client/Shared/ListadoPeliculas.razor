@@ -8,11 +8,12 @@
         }
         else
         {
-            <Input type="checkbox" @onchange="@( () => MOstrarBotones = !MOstrarBotones )" />
+     
+     <input  type="checkbox" @bind="MostrarBotones"/>
 
             @foreach (var pelicula in Peliculas)
             {
-               <PeliculaIndividual Pelicula="pelicula" MostrarBotones="MOstrarBotones"></PeliculaIndividual>
+               <PeliculaIndividual Pelicula="pelicula" MostrarBotones="MostrarBotones"></PeliculaIndividual>
             }
         }
 
@@ -20,6 +21,6 @@
 {
 
     [Parameter] public List<Pelicula> Peliculas { get; set; }
-    bool MOstrarBotones = false;  
+    bool MostrarBotones = true;  
 
 }
