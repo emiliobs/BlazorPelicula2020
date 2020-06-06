@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using BlazorPelicula2020.Client.Repositorios;
 
 namespace BlazorPelicula2020.Client
 {
@@ -18,7 +19,10 @@ namespace BlazorPelicula2020.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            builder.Services.AddOptions();
+            builder.Services.AddSingleton<ServiciosSingleton>();
+            builder.Services.AddTransient<ServicioTransient>();
+            builder.Services.AddScoped<IRepositorio, Repositorio>();
             await builder.Build().RunAsync();
         }
     }

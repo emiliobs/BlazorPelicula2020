@@ -1,16 +1,18 @@
 ﻿@page "/"
+@inject ServiciosSingleton ServiciosSingleton
+@inject IRepositorio repositorio
 
-    <div>
-        <h3>Peliculas</h3>
-        <hr />
+<p>El valor del singletone: @ServiciosSingleton.Valor</p>
 
-        <ListadoPeliculas Peliculas="Peliculas"></ListadoPeliculas>
-           
+<div>
+    <h3>Peliculas</h3>
+    <hr />
 
-     
-      
-   
+    <ListadoPeliculas Peliculas="Peliculas"></ListadoPeliculas>
+
 </div>
+
+<button class="btn btn-info mt-1" @onclick="AgregarPelicula">Agregar Pelicula</button>
 
 
 
@@ -30,23 +32,17 @@
 
     protected override Task OnInitializedAsync()
     {
-        Peliculas = ObtenerPeliculas();
+        //Peliculas = ObtenerPeliculas();
+        Peliculas = repositorio.ObtenerPeloculas();
 
         return base.OnInitializedAsync();
     }
 
-    private List<Pelicula> ObtenerPeliculas()
-    {
+    //private List<Pelicula> ObtenerPeliculas()
+    //{
 
-        return new List<Pelicula>()
-        {
-            new Pelicula { Titulo = "Spider-Man: Far From Home", Lanzamiento = new DateTime(2019, 7, 2) },
-            new Pelicula { Titulo = "Moana", Lanzamiento = new DateTime(2016, 5, 5) },
-            new Pelicula { Titulo = "Inception", Lanzamiento = new DateTime(2015, 7, 7) },
-            new Pelicula { Titulo = "Speed 5", Lanzamiento = new DateTime(2020, 5, 5) },
-            new Pelicula { Titulo = "Creasy for Mery", Lanzamiento = new DateTime(2018, 8, 5) },
-        };
-    }
+    //    return repositorio.ObtenerPeloculas();
+    //}
 
 
     //string EnMAyuscular(string valor) => valor.ToUpper();
@@ -56,6 +52,11 @@
     {
         return new Pelicula { Titulo = "Spider-Man: Far From Home", Lanzamiento = new DateTime(2019, 7, 2) };
 
+    }
+
+    private void AgregarPelicula()
+    {
+        Peliculas.Add(new Pelicula { Titulo = "Nueva Pelicula", Lanzamiento = DateTime.Today });
     }
 
     private void ManejarClick()
