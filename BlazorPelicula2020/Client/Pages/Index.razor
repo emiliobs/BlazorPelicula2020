@@ -8,7 +8,7 @@
     <h3>Peliculas</h3>
     <hr />
 
-    <ListadoPeliculas Peliculas="Peliculas"></ListadoPeliculas>
+    <ListadoPeliculas  Peliculas="Peliculas"></ListadoPeliculas>
 
 </div>
 
@@ -28,10 +28,14 @@
 
     };
 
+    
+
     private List<Pelicula> Peliculas;
+
 
     protected override Task OnInitializedAsync()
     {
+       
         //Peliculas = ObtenerPeliculas();
         Peliculas = repositorio.ObtenerPeloculas();
 

@@ -8,11 +8,17 @@
     </HayRegistros>
 </ListadoGenerico>
 
+<Confirmacion @ref="confirmation" onConfirm="EliminarPeliculaConfirmacion" onCancel="OnCAncelConfirmacion">
+    <div>¿Desea borrar la película?</div>
+</Confirmacion>
 
 @code
 {
+    Confirmacion confirmation;
 
     [Parameter] public List<Pelicula> Peliculas { get; set; }
+
+    Pelicula peliculaABorrar;
 
     protected override void OnInitialized()
     {
@@ -42,14 +48,31 @@
 
     async Task EliminarPelicula(Pelicula pelicula)
     {
-        var confirmado = await JS.Confirm($"¿Desea borrar la película { pelicula.Titulo }?");
+        confirmation.Mostrar();
+        peliculaABorrar = pelicula;
+        //var confirmado = await JS.Confirm($"¿Desea borrar la película { pelicula.Titulo }?");
 
-        if (confirmado)
-        {
-            Peliculas.Remove(pelicula);
-            Console.WriteLine($"Se ha eliminado una Película: {pelicula.Titulo}");
-        }
+        //if (confirmado)
+        //{
+        //    Peliculas.Remove(pelicula);
+        //    Console.WriteLine($"Se ha eliminado una Película: {pelicula.Titulo}");
+        //}
 
     }
+
+    void EliminarPeliculaConfirmacion()
+    {
+        Peliculas.Remove(peliculaABorrar);
+        confirmation.Oculltar();
+        peliculaABorrar = null;
+    }
+
+    void OnCAncelConfirmacion()
+    {
+        confirmation.Oculltar();
+        peliculaABorrar = null;
+    }
+
+
 
 }
