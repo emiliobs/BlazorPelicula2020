@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static BlazorPelicula2020.Client.Shared.MainLayout;
 
 namespace BlazorPelicula2020.Client.Pages
 {
@@ -14,6 +15,8 @@ namespace BlazorPelicula2020.Client.Pages
         [Inject]  public ServiciosSingleton Singleton { get; set; }
         [Inject] public ServicioTransient Transient { get; set; }
         [Inject] protected  IJSRuntime  JS { get; set; }
+        [CascadingParameter] public AppState AppState { get; set; }
+       
 
         protected int currentCount = 0;
         static int currentCountStatic = 0;
