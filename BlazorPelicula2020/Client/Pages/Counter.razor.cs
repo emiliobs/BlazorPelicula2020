@@ -15,7 +15,7 @@ namespace BlazorPelicula2020.Client.Pages
         [Inject]  public ServiciosSingleton Singleton { get; set; }
         [Inject] public ServicioTransient Transient { get; set; }
         [Inject] protected  IJSRuntime  JS { get; set; }
-        [CascadingParameter] public AppState AppState { get; set; }
+        
        
 
         protected int currentCount = 0;

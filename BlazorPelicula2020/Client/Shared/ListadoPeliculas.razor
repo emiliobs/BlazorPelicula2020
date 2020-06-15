@@ -1,78 +1,29 @@
 ﻿@inject IJSRuntime JS
 
-    <input type="checkbox" @bind="MostrarBotones" />
-
-<ListadoGenerico Listado="Peliculas">
-    <HayRegistros Context="pelicula"> 
-        <PeliculaIndividual Pelicula="pelicula" MostrarBotones="MostrarBotones" Eliminarpelicula="EliminarPelicula"></PeliculaIndividual>
-    </HayRegistros>
-</ListadoGenerico>
-
-<Confirmacion @ref="confirmation" onConfirm="EliminarPeliculaConfirmacion" onCancel="OnCAncelConfirmacion">
-    <div>¿Desea borrar la película?</div>
-</Confirmacion>
+    <div style="display: flex; flex-wrap: wrap; align-items: center;">
+        <ListadoGenerico Listado="Peliculas">
+            <HayRegistros Context="pelicula">
+                <PeliculaIndividual Pelicula="pelicula" Eliminarpelicula="EliminarPelicula"></PeliculaIndividual>
+            </HayRegistros>
+        </ListadoGenerico>
+    </div>  
 
 @code
 {
-    Confirmacion confirmation;
-
     [Parameter] public List<Pelicula> Peliculas { get; set; }
-
-    Pelicula peliculaABorrar;
-
-    protected override void OnInitialized()
-    {
-        Console.WriteLine($"OnInitialized - Cantidad Peliculas: { Peliculas.Count }");
-    }
-
-
-    protected override void OnParametersSet()
-    {
-        Console.WriteLine($"OnParametersSet  Cantidad Peliculas: { Peliculas.Count }");
-    }
-
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        Console.WriteLine($"On After Render: Primera vez : { firstRender }");
-    }
-
-    protected override bool ShouldRender()
-    {
-        Console.WriteLine("ShouldRender");
-        return true;
-    }
-
-
-    bool MostrarBotones = true;
 
     async Task EliminarPelicula(Pelicula pelicula)
     {
-        confirmation.Mostrar();
-        peliculaABorrar = pelicula;
-        //var confirmado = await JS.Confirm($"¿Desea borrar la película { pelicula.Titulo }?");
 
-        //if (confirmado)
-        //{
-        //    Peliculas.Remove(pelicula);
-        //    Console.WriteLine($"Se ha eliminado una Película: {pelicula.Titulo}");
-        //}
+        var confirmado = await JS.Confirm($"¿Desea borrar la película { pelicula.Titulo }?");
+
+        if (confirmado)
+        {
+            Peliculas.Remove(pelicula);
+            Console.WriteLine($"Se ha eliminado una Película: {pelicula.Titulo}");
+        }
 
     }
 
-    void EliminarPeliculaConfirmacion()
-    {
-        Peliculas.Remove(peliculaABorrar);
-        confirmation.Oculltar();
-        peliculaABorrar = null;
-    }
-
-    void OnCAncelConfirmacion()
-    {
-        confirmation.Oculltar();
-        peliculaABorrar = null;
-    }
-
-
-
+   
 }

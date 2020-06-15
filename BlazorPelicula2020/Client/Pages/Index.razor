@@ -1,37 +1,13 @@
 ﻿@page "/"
-@inject ServiciosSingleton ServiciosSingleton
 @inject IRepositorio repositorio
-    @using static BlazorPelicula2020.Client.Shared.MainLayout;
-
-    <p style="color:@AppState.Color;">El valor del singletone: @ServiciosSingleton.Valor</p>
-
+   
     <div>
         <h3>Peliculas</h3>
         <hr />
-
         <ListadoPeliculas Peliculas="Peliculas"></ListadoPeliculas>
-
     </div>
 
-    <button class="btn btn-info mt-1" @onclick="AgregarPelicula">Agregar Pelicula</button>
-
-
-
     @code{
-
-        string nombre = "Emilio";
-
-        [CascadingParameter] public AppState AppState { get; set; }
-
-        private Dictionary<string, object> EjmeploTexboxParametros = new Dictionary<string, object>()
-{
-
-        { "placeholder", "nueva pelicula" },
-        { "type" , "passwors" }
-
-    };
-
-
 
         private List<Pelicula> Peliculas;
 
@@ -44,30 +20,5 @@
 
             return base.OnInitializedAsync();
         }
-
-        //private List<Pelicula> ObtenerPeliculas()
-        //{
-
-        //    return repositorio.ObtenerPeloculas();
-        //}
-
-
-        //string EnMAyuscular(string valor) => valor.ToUpper();
-        public Pelicula SpiderMan => ObtenerPelicula();
-
-        private Pelicula ObtenerPelicula()
-        {
-            return new Pelicula { Titulo = "Spider-Man: Far From Home", Lanzamiento = new DateTime(2019, 7, 2) };
-
-        }
-
-        private void AgregarPelicula()
-        {
-            Peliculas.Add(new Pelicula { Titulo = "Nueva Pelicula", Lanzamiento = DateTime.Today });
-        }
-
-        private void ManejarClick()
-        {
-            Console.WriteLine("Me han clickeado desde método....");
-        }
+       
     }
