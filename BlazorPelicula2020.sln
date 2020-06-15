@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorPelicula2020.Client",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorPelicula2020.Shared", "BlazorPelicula2020\Shared\BlazorPelicula2020.Shared.csproj", "{1A98FD33-0E25-43E3-9BA8-02F752571738}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorPiedraPapelyTijeras", "BlazorPiedraPapelyTijeras\BlazorPiedraPapelyTijeras.csproj", "{87E6CF22-973B-4BBE-B0A7-920A03F10D94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorPiedraPapelyTijeras", "BlazorPiedraPapelyTijeras\BlazorPiedraPapelyTijeras.csproj", "{87E6CF22-973B-4BBE-B0A7-920A03F10D94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

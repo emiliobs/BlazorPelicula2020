@@ -16,4 +16,10 @@
     <ProjectReference Include="..\Shared\BlazorPelicula2020.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Generos\" />
+    <Folder Include="Pages\Persona\" />
+    <Folder Include="Pages\Peliculas\" />
+  </ItemGroup>
+
 </Project>
