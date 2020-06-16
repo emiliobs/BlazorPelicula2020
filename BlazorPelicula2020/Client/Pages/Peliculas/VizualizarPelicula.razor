@@ -1,7 +1,17 @@
-﻿@page "/pelicula/"
+﻿@page "/pelicula/{PeliculaId:int}"
+@page "/pelicula/{PeliculaId:int}/{NombrePelicula}"
 
 <h3>Vizualizar Pelicula</h3>
 
 @code {
+
+    [Parameter] public int PeliculaId { get; set; }
+    [Parameter] public string NombrePelicula { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        Console.WriteLine($"El Id de la película es {PeliculaId} wiht name : {NombrePelicula}");
+        return base.OnInitializedAsync();
+    }
 
 }
