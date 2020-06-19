@@ -2,6 +2,27 @@
 
 <h3>Crear Genero</h3>
 
+
+<EditForm Model="Genero" OnSubmit=" Crear">
+        <div class="form-group">
+            <label>Nombre: </label>
+            <div>
+                <InputText class="form-control" @bind-Value="@Genero.Nombre"></InputText>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-success" type="submit">Guardar Genero.</button>
+       </div>
+    </EditForm>
+
 @code {
+    private Genero Genero = new Genero();
+
+
+    private void Crear()
+    {
+        Console.WriteLine("Ejecutando el método Crea.");
+        Console.WriteLine($"Nombre del género: {Genero.Nombre}");
+    }
 
 }
