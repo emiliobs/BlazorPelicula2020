@@ -3,11 +3,13 @@
 <h3>Crear Genero</h3>
 
 
-<EditForm Model="Genero" OnSubmit=" Crear">
+<EditForm Model="Genero" OnValidSubmit =" Crear">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
         <div class="form-group">
-            <label>Nombre: </label>
-            <div>
-                <InputText class="form-control" @bind-Value="@Genero.Nombre"></InputText>
+            <label for="nombre" class="col-sm-2 col-form-label">Nombre: </label>
+            <div class="col-sm-10">
+                <InputText class="form-control" id="nombre" placeholder="Nombre....." @bind-Value="@Genero.Nombre"></InputText>
+                <ValidationMessage For="@(() => Genero.Nombre)"></ValidationMessage>
             </div>
         </div>
         <div class="form-group">
