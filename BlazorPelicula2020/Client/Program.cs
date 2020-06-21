@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using BlazorPelicula2020.Client.Repositorios;
+using Microsoft.Extensions.Options;
+using Blazor.FileReader;
 
 namespace BlazorPelicula2020.Client
 {
@@ -23,6 +25,7 @@ namespace BlazorPelicula2020.Client
             builder.Services.AddSingleton<ServiciosSingleton>();
             builder.Services.AddTransient<ServicioTransient>();
             builder.Services.AddScoped<IRepositorio, Repositorio>();
+            builder.Services.AddFileReaderService(Options => Options.InitializeOnFirstCall = true);
             await builder.Build().RunAsync();
         }
     }
