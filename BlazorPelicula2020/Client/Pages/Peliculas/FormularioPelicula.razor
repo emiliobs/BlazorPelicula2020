@@ -1,59 +1,85 @@
 ﻿
 
-    <EditForm Model="Pelicula" OnValidSubmit="OnValidSubmit">
-        <DataAnnotationsValidator></DataAnnotationsValidator>
-        <div class="form-group">
-            <label>Título:</label>
-            <div>
-                <InputText class="form-control" @bind-Value="@Pelicula.Titulo" />
-                <ValidationMessage For="@(() => Pelicula.Titulo)"></ValidationMessage>
-            </div>
+<EditForm Model="Pelicula" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div class="form-group">
+        <label>Título:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Pelicula.Titulo" />
+            <ValidationMessage For="@(() => Pelicula.Titulo)"></ValidationMessage>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label>En Cartelera:</label>
-            <div>
-                <InputCheckbox  @bind-Value="@Pelicula.EnCartelera" />
-                <ValidationMessage For="@(() => Pelicula.EnCartelera)"></ValidationMessage>
-            </div>
+    <div class="form-group">
+        <label>En Cartelera:</label>
+        <div>
+            <InputCheckbox @bind-Value="@Pelicula.EnCartelera" />
+            <ValidationMessage For="@(() => Pelicula.EnCartelera)"></ValidationMessage>
         </div>
+    </div>
 
 
-        <div class="form-group">
-            <label>Trailer:</label>
-            <div>
-                <InputText class="form-control" @bind-Value="@Pelicula.Trailer" />
-                <ValidationMessage For="@(() => Pelicula.Trailer)"></ValidationMessage>
-            </div>
+    <div class="form-group">
+        <label>Trailer:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Pelicula.Trailer" />
+            <ValidationMessage For="@(() => Pelicula.Trailer)"></ValidationMessage>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label>Fecha de Lanzamiento:</label>
-            <div>
-                <InputDate class="form-control" @bind-Value="@Pelicula.Lanzamiento" />
-                <ValidationMessage For="@(() => Pelicula.Lanzamiento)"></ValidationMessage>
-            </div>
+    <div class="form-group">
+        <label>Fecha de Lanzamiento:</label>
+        <div>
+            <InputDate class="form-control" @bind-Value="@Pelicula.Lanzamiento" />
+            <ValidationMessage For="@(() => Pelicula.Lanzamiento)"></ValidationMessage>
         </div>
+    </div>
 
-        <div class="form-group form-markdown">
-            <InputMarkdown @bind-Value="@Pelicula.Resumen"
-                           For="@(() => Pelicula.Resumen)"
-                           Label="Resument"></InputMarkdown>
+    <div class="form-group form-markdown">
+        <InputMarkdown @bind-Value="@Pelicula.Resumen"
+                       For="@(() => Pelicula.Resumen)"
+                       Label="Resument"></InputMarkdown>
 
+    </div>
+
+    <div class="form-group">
+        <InputImg Label="Foto" ImagenSeleccionada="ImagenSeleccionada" ImagenTemporal="" />
+    </div>
+
+    <div class="form-group">
+        <label>Géneros</label>
+        <div>
+            <SelectorMultiple Selecionados="Seleccionados" NoSeleccionados="NoSeleccionados"></SelectorMultiple>
         </div>
+    </div>
 
-        <div class="form-group">
-            <InputImg Label="Foto" ImagenSeleccionada="ImagenSeleccionada" ImagenTemporal="" />
-        </div>
-
-        <button type="submit" class="btn btn-success">Salvar Película</button>
-    </EditForm>
+    <button type="submit" class="btn btn-success">Salvar Película</button>
+</EditForm>
 
 
 @code{
 
     [Parameter] public Pelicula Pelicula { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<Genero> GenerosSeleccionados { get; set; } = new List<Genero>();
+    [Parameter] public List<Genero> GenerosNoSeleccionados { get; set; } = new List<Genero>();
+
+    public List<SelectorMultipleModel> Seleccionados { get; set; } = new List<SelectorMultipleModel>();
+    public List<SelectorMultipleModel> NoSeleccionados { get; set; } = new List<SelectorMultipleModel>();
+
+    private string posterTemporal;
+
+    protected override void OnInitialized()
+    {
+        Seleccionados = GenerosSeleccionados.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Nombre)).ToList();
+        NoSeleccionados = GenerosNoSeleccionados.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Nombre)).ToList();
+
+        if (!string.IsNullOrWhiteSpace(Pelicula.Poster))
+        {
+            posterTemporal = Pelicula.Poster;
+            Pelicula.Poster = null;
+        }
+    }
 
     private void ImagenSeleccionada(string imagenBase64)
     {

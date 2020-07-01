@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlazorPelicula2020.Shared.Entidades
@@ -8,7 +9,6 @@ namespace BlazorPelicula2020.Shared.Entidades
         public int Id { get; set; }
 
         [Required]
-
         public string Titulo { get; set; }
 
         public string Resumen { get; set; }
@@ -21,6 +21,7 @@ namespace BlazorPelicula2020.Shared.Entidades
         public DateTime? Lanzamiento { get; set; }
 
         public string Poster { get; set; }
+        public List<GeneroPelicula> GeneroPeliculas { get; set; } = new List<GeneroPelicula>();
 
         public string TituloCortado
         {
