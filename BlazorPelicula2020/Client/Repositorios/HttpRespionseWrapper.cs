@@ -16,7 +16,15 @@ namespace BlazorPelicula2020.Client.Repositorios
         }
 
         public bool Error { get; set; }
+        
         public T Response { get; set; }
+        
         public HttpResponseMessage  HttpResponseMessage { get; set; }
+
+        public async Task<string> GetBody()
+        {
+            return await HttpResponseMessage.Content.ReadAsStringAsync();
+        }
+
     }
 }
