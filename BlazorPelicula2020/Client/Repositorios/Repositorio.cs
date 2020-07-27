@@ -2,12 +2,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BlazorPelicula2020.Client.Repositorios
 {
     public class Repositorio : IRepositorio
     {
+        private readonly HttpClient _httpClient;
+
+        public Repositorio(HttpClient httpClient)
+        {
+            this._httpClient = httpClient;
+        }
+
+        public async Task<HttpRespionseWrapper<object>> Post<T>(string url, T enviar)
+        {
+            var enviarJSON = JsonSerializer.Serialize(enviar);
+            var enviarContent = new StringContent(enviarJSON, Encoding.UTF8, "application/json");
+            var responseHttp = await _httpClient.PostAsync(url, enviarContent);
+            return new HttpRespionseWrapper<object>(!responseHttp.IsSuccessStatusCode, null, responseHttp);
+        }
+
         public List<Pelicula> ObtenerPeloculas()
         {
             return new List<Pelicula>()
