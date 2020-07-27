@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using BlazorPelicula2020.Server.Helpers;
 
 namespace BlazorPelicula2020.Server
 {
@@ -24,6 +25,7 @@ namespace BlazorPelicula2020.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IAlmacenadorDeArchivos, AlmacenadorArchivoAzStorage>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
