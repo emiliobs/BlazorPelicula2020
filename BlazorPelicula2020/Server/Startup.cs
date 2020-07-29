@@ -25,7 +25,9 @@ namespace BlazorPelicula2020.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IAlmacenadorDeArchivos, AlmacenadorArchivoAzStorage>();
+            services.AddScoped<IAlmacenadorDeArchivos, AlmacenadorArchivoLocal>();
+            // services.AddScoped<IAlmacenadorDeArchivos, AlmacenadorArchivoAzStorage>();
+            services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
