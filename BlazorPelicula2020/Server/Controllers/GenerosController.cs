@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BlazorPelicula2020.Shared.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorPelicula2020.Server.Controllers
 {
@@ -17,6 +18,12 @@ namespace BlazorPelicula2020.Server.Controllers
         public GenerosController(ApplicationDbContext context)
         {
             this._context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Genero>>> Get()
+        {
+            return await _context.Generos.ToListAsync();
         }
 
         [HttpPost]

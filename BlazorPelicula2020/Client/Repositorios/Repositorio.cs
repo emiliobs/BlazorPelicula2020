@@ -29,7 +29,6 @@ namespace BlazorPelicula2020.Client.Repositorios
             return new HttpRespionseWrapper<object>(null,!responseHttp.IsSuccessStatusCode, responseHttp);
         }
 
-
         public async Task<HttpRespionseWrapper<TResponse>> Post<T, TResponse>(string url, T enviar)
         {
             var enviarJSON = JsonSerializer.Serialize(enviar);
@@ -46,6 +45,20 @@ namespace BlazorPelicula2020.Client.Repositorios
             }
         }
 
+        public async Task<HttpRespionseWrapper<T>> Get<T>(string url)
+        {
+            var responseHTTP = await _httpClient.GetAsync(url);
+            if (responseHTTP.IsSuccessStatusCode)
+            {
+                var response = await DeserializarRespuesta<T>(responseHTTP, OpcionesPorDefectoJSON);
+                return new HttpRespionseWrapper<T>(response, false ,responseHTTP);
+            }
+            else
+            {
+                return new HttpRespionseWrapper<T>(default, true, responseHTTP);
+            }
+        }
+        
         private async Task<T> DeserializarRespuesta<T>(HttpResponseMessage httpResponse, JsonSerializerOptions jsonSerializerOptions)
         {
             var responseString = await httpResponse.Content.ReadAsStringAsync();
