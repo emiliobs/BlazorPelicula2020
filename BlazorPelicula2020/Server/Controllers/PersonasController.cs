@@ -6,6 +6,7 @@ using BlazorPelicula2020.Server.Helpers;
 using BlazorPelicula2020.Shared.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorPelicula2020.Server.Controllers
 {
@@ -20,6 +21,12 @@ namespace BlazorPelicula2020.Server.Controllers
         {
             this._context = context;
             this._almacenadorDeArchivos = almacenadorDeArchivos;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Persona>>> Get()
+        {
+            return await _context.Personas.ToListAsync();
         }
 
         public async Task<int> Post(Persona persona)

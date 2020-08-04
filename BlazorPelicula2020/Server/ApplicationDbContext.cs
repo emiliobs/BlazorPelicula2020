@@ -17,6 +17,7 @@ namespace BlazorPelicula2020.Server
         public DbSet<GeneroPelicula> GeneroPeliculas { get; set; }
         public DbSet<Pelicula> Peliculas { get; set; }
         public DbSet<Genero> Generos { get; set; }
+        public DbSet<Persona> Personas { get; set; }
         public DbSet<PeliculaActor> peliculaActores { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
