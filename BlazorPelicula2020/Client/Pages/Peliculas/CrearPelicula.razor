@@ -1,5 +1,7 @@
 ﻿@page "/peliculas/crear"
-
+@inject NavigationManager navigationManager
+@inject IRepositorio repositorio
+@inject IMostrarMensajes mostrarMensajes
 
 <h3>Crear Pelicula</h3>
 
@@ -15,7 +17,7 @@
     protected override void OnInitialized()
     {
         GenerosNoSeleccionados = new List<Genero>
-        {
+{
             new Genero{ Id = 1, Nombre = "Comedia" },
             new Genero{ Id = 2, Nombre = "Drama" },
             new Genero{ Id = 3, Nombre = "Terror" },
@@ -25,10 +27,20 @@
 
     }
 
-    private void Crear()
+    async Task Crear()
     {
-        Console.WriteLine(NavigationManager.Uri);
-        NavigationManager.NavigateTo("pelicula/5/emilio");
+        var httpResponse = await repositorio.Post<Pelicula, int>("api/peliculas", Pelicula);
+
+        if (httpResponse.Error)
+        {
+            var mensajeError = await httpResponse.GetBody();
+            await mostrarMensajes.MostrarmensajeError(mensajeError);
+        }
+        else
+        {
+            var PeliculaId = httpResponse.Response;
+            navigationManager.NavigateTo($"/pelicula/{PeliculaId}/{Pelicula.Titulo.Replace(" ", "-")}");
+        }
     }
 
 }

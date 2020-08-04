@@ -10,5 +10,6 @@ namespace BlazorPelicula2020.Client.Repositorios
     {
         List<Pelicula> ObtenerPeloculas();
         Task<HttpRespionseWrapper<object>> Post<T>(string url, T enviar);
+        Task<HttpRespionseWrapper<TResponse>> Post<T, TResponse>(string url, T enviar);
     }
 }

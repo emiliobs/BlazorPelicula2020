@@ -57,7 +57,7 @@
         <div>
             <SelectorMultipleTypeahead Context="Persona" SearchMethod="BuscarActores" ElementosSeleccionados="ActoresSeleccionados">
                 <MyListTemplate>
-                    @Persona.Nombre
+                    @Persona.Nombre / <input type="text"  placeholder="Personaje" @bind="Persona.Personaje"/>
                 </MyListTemplate>
                 <MyResultTemplate>
                     <img  style="width:50px;" src="@Persona.Foto"/>
@@ -104,11 +104,22 @@
 
     private async Task<IEnumerable<Persona>> BuscarActores(string searchText)
     {
-         return new List<Persona>
+        return new List<Persona>
         {
             new Persona { Id = 1, Nombre = "Tom Holland", Foto = "https://m.media-amazon.com/images/M/MV5BNTAzMzA3NjQwOF5BMl5BanBnXkFtZTgwMDUzODQ5MTI@._V1_UY317_CR23,0,214,317_AL_.jpg" },
             new Persona { Id = 1, Nombre = "Tom Hanks", Foto = "https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_UY317_CR2,0,214,317_AL_.jpg" }
         };
+    }
+
+    private async Task OnDataAnnotationsValidated()
+    {
+        Pelicula.GeneroPeliculas = Seleccionados.Select(x => new GeneroPelicula { GeneroId = int.Parse(x.Llave) } ).ToList();
+
+        Pelicula.PeliculaActores = ActoresSeleccionados.Select(x => new PeliculaActor { PersonaId = x.Id, Personaje = x.Personaje }).ToList();
+
+        if (!string.IsNullOrWhiteSpace(Pelicula.Poster)) { posterTemporal = null; }
+
+        await OnValidSubmit.InvokeAsync(null);
     }
 
 }
