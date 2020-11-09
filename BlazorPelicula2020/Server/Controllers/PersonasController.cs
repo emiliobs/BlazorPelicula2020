@@ -29,6 +29,19 @@ namespace BlazorPelicula2020.Server.Controllers
             return await _context.Personas.ToListAsync();
         }
 
+        [HttpGet("buscar/{textoBusqueda}")]
+        public async Task<ActionResult<List<Persona>>> Get(string textoBusqueda)
+        {
+            if (string.IsNullOrWhiteSpace(textoBusqueda))
+            {
+                return new List<Persona>();
+            }
+
+            textoBusqueda = textoBusqueda.ToLower();
+
+            return await _context.Personas.Where(p => p.Nombre.ToLower().Contains(textoBusqueda)).ToListAsync();
+        }
+
         public async Task<int> Post(Persona persona)
         {
             if (!string.IsNullOrWhiteSpace(persona.Foto))
